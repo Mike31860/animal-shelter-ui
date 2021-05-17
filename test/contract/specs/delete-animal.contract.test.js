@@ -14,6 +14,7 @@ describe('Given An Animal service', () => {
                 withRequest: {
                     method: 'DELETE',
                     path: `/animals/${name}`,
+                    
                 },
                 willRespondWith: {
                     status: 204,
