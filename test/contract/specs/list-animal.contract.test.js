@@ -1,14 +1,14 @@
-import {Matchers} from '@pact-foundation/pact';
-import {AnimalController} from '../../../controllers';
-import {provider} from '../config/initPact';
+import { provider } from "./init-pact";
+import { AnimalController } from "../../../controllers";
+import { Matchers } from "@pact-foundation/pact";
 
-describe('Animal Service', () => {
-    describe('When a request to list all animals is made', () => {
+describe('Given An Animal service', () => {
+    describe('When a request to list all the animals is made', () => {
         beforeAll(async () => {
             await provider.setup();
             await provider.addInteraction({
-                uponReceiving: 'a request to list all animals',
-                state: "has animals",
+                state: 'has animals',
+                uponReceiving: 'a request to get all animals',
                 withRequest: {
                     method: 'GET',
                     path: '/animals'
@@ -17,23 +17,24 @@ describe('Animal Service', () => {
                     status: 200,
                     body: Matchers.eachLike(
                         {
-                            name: Matchers.like('manchas'),
-                            breed: Matchers.like("Bengali"),
-                            gender: Matchers.like("Female"),
-                            vaccinated: Matchers.boolean(true)
+                        name: Matchers.string("Manchas"),
+                        breed: Matchers.like("Bengali"),
+                        gender: Matchers.like("Female"),
+                        vaccinated: Matchers.boolean(true),
                         }
                     )
                 }
             });
         });
 
-        test('should return the correct data', async () => {
+        it("Then it should return the right data", async() =>{
             const response = await AnimalController.list();
             expect(response.data).toMatchSnapshot();
-            
-            await provider.verify()
+            await provider.verify();
         });
 
-        afterAll(() => provider.finalize());
+        afterAll(async () => {
+            await provider.finalize();
+        });
     });
 });

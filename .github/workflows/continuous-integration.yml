@@ -27,10 +27,10 @@ jobs:
     - name: run contract tests
       run: npm run test:contract
       env:
-        API: http://localhost:8080
+        API: ${{secrets.API_URL}}
     - name: publish contracts
       env:
-        PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
-        PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
-      run: npm run publish:contract
-
+        PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
+        PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
+        PACT_CONSUMER_VERSION: ${{secrets.PACT_CONSUMER_VERSION}}
+      run: npm run test:contract:publish
