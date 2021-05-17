@@ -8,13 +8,14 @@ const animal = {
     gender: "Female",
     vaccinated: false
 }
+
 describe('Given An Animal service', () => {
-    describe('When the request create a new animal is made', () => {
+    describe('When a request to add a new animal is made', () => {
         beforeAll(async () => {
             await provider.setup();
             await provider.addInteraction({
                 state: 'Adding animal',
-                uponReceiving: 'Request to add a new animal',
+                uponReceiving: 'a request to add a new animal',
                 withRequest: {
                     method: 'POST',
                     path: '/animals',
@@ -50,4 +51,4 @@ describe('Given An Animal service', () => {
             await provider.finalize();
         });
     });
-});
+}); 

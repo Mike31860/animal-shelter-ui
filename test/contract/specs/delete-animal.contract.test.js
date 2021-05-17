@@ -5,16 +5,15 @@ import { Matchers } from "@pact-foundation/pact";
 const name = "Copito";
 
 describe('Given An Animal service', () => {
-    describe('When a request to delete an specified animal is made', () => {
+    describe('When a request to delete an animal is made', () => {
         beforeAll(async () => {
             await provider.setup();
             await provider.addInteraction({
                 state: 'name of animal',
-                uponReceiving: 'The Request to delete the animal',
+                uponReceiving: 'a request to delete an animal',
                 withRequest: {
                     method: 'DELETE',
                     path: `/animals/${name}`,
-                    
                 },
                 willRespondWith: {
                     status: 204,
@@ -34,4 +33,4 @@ describe('Given An Animal service', () => {
             await provider.finalize();
         });
     });
-});
+}); 
